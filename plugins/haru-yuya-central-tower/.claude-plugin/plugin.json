@@ -1,0 +1,9 @@
+{
+  "name": "haru-yuya-central-tower",
+  "description": "Shared safety, Health execution, and OSAI runtime learning workflows for Haru-Yuya Central Tower.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Yuya + Haru"
+  },
+  "repository": "https://github.com/ryryss2-dev/haru-yuya-central-tower-claude-plugins"
+}

@@ -1,0 +1,13 @@
+{
+  "name": "haru-yuya-central-tower-marketplace",
+  "owner": {
+    "name": "Yuya + Haru"
+  },
+  "plugins": [
+    {
+      "name": "haru-yuya-central-tower",
+      "source": "./plugins/haru-yuya-central-tower",
+      "description": "Common safety, Health execution, and OSAI runtime learning skills."
+    }
+  ]
+}
