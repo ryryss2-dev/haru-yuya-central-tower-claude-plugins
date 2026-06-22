@@ -330,6 +330,8 @@ Baseline:
 - Health availability: required
 - active cooldown routes: excluded
 - huge payload automatic failover: prohibited by default
+- key_slot account scope: separate-by-default. A 429/auth/5xx on one key_slot must NOT cool down, HOLD, or serialize sibling key_slots of the same provider. Shared cooldown applies only when a recorded key_slot_scope_exception declares a shared quota_scope_id / rate_limit_scope_id.
+- provider-wide brake requires explicit provider-wide evidence (status page / IP block / service-wide); it is a separate axis and never implies same account.
 
 A temporary provider error is not permission to spray the same request across providers.
 
@@ -390,6 +392,7 @@ Examples:
 - capability
 - sanitized operational evidence
 - AVAILABLE / temporary unavailable / reinspection
+- credential/account/quota/rate-limit SCOPE per key_slot (account_scope_id / quota_scope_id / rate_limit_scope_id), scope_origin (owner_default | explicit_exception | observed_evidence), and any key_slot_scope_exception records. Default: every key_slot is an independent account.
 
 ### OSAI owns how and why a route should be used
 

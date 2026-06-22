@@ -78,6 +78,8 @@ provider_id
 + model
 + request_shape
 + payload_size_bucket
++ account_scope_id          # independent capacity unit (separate-by-default)
++ rate_limit_scope_id       # 429 cooldown unit
 ```
 
 Add when required:
@@ -228,6 +230,10 @@ capability_match_required: true
 health_available_required: true
 active_cooldown_excluded: true
 huge_payload_automatic_failover: false
+provider_only_grouping_prohibited: true        # never bulk-act on provider_id alone
+key_slot_account_scope: separate_by_default     # share only via recorded exception
+cooldown_unit: rate_limit_scope_id              # 429 cools the scope, not the provider
+failure_unit: credential_identity_ref           # auth failure isolates to the credential
 ```
 
 ### Error handling
@@ -473,6 +479,8 @@ observation
 → review or threshold
 → canonical adoption
 ```
+
+OSAI must never, using provider_id alone: bulk-cooldown, bulk-HOLD, bulk failure-propagate, or bulk-serialize a key_slot group; nor propagate one slot's 429/auth/5xx to a different-account slot; nor apply a permanent provider-wide brake on unknown scope. Separate-account slots are independent capacity. Every temporary brake carries expiry + review_due + graduation_condition.
 
 Teacher Inbox is for bootstrap and exception review.
 

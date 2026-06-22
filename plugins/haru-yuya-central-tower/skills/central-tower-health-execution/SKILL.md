@@ -40,6 +40,9 @@ provider_id
 + model
 + request_shape
 + payload_size_bucket
++ account_scope_id          # independent capacity unit (separate-by-default)
++ quota_scope_id            # quota pool identifier
++ rate_limit_scope_id       # 429 cooldown unit
 ```
 
 Add dimensions when required:
@@ -90,6 +93,8 @@ Health owns evidence and lifecycle for:
 - reinspection queue
 - stale evidence
 - proof expiry
+- key_slot scope contract: account_scope_id / quota_scope_id / rate_limit_scope_id (default distinct per slot), scope_origin, independent_capacity (default true), cooldown_scope (default key_slot), failure_scope (default credential), parallelism_scope (default per_key_slot), exception_ref.
+- key_slot_scope_exception store (empty by default); a share requires owner_statement | official_spec | measured_header | composite_credential evidence.
 
 Health may publish facts to OSAI.
 
@@ -428,6 +433,8 @@ Track exact:
 - requested model
 - returned model
 - substitution or fallback evidence
+
+Each key_slot is a separate account by default. AWS Bedrock and Vertex AI multi-key providers have confirmed independent accounts (see OSAI_CREDENTIAL_BILLING_ACCOUNT_MAPPING_20260619.md for cross-reference).
 
 If requested and returned model differ, classify explicitly.
 
