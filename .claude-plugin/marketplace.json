@@ -6,7 +6,7 @@
   "plugins": [
     {
       "name": "haru-yuya-central-tower",
-      "version": "0.1.1",
+      "version": "0.1.4",
       "source": "./plugins/haru-yuya-central-tower",
       "description": "Common safety, Health execution, and OSAI runtime learning skills."
     }

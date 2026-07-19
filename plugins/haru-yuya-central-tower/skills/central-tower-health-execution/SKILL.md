@@ -1,9 +1,24 @@
 ---
 name: central-tower-health-execution
-description: Use this skill for Haru-Yuya Central Tower Health work: provider availability, credential slots, account and region mapping, model catalogs, bounded probes, quota and cooldown handling, request-shape and payload-size evidence, AVAILABLE lifecycle, reinspection queues, and Health dashboard evidence. Load together with central-tower-common-safety.
+description: Use this skill for Haru-Yuya Central Tower Health work: provider availability, credential slots, account and region mapping, model catalogs, bounded probes, quota and cooldown handling, request-shape and payload-size evidence, AVAILABLE lifecycle, reinspection queues, and Health dashboard evidence. When creating, editing, or reviewing user-visible Health dashboard UI, also apply the scoped Apple Design profile in section 17.1. Load together with central-tower-common-safety.
 ---
 
 # Haru-Yuya Central Tower Health Execution Skill
+
+<!-- HARU_GOVERNANCE_POLICY_PROJECTION:BEGIN -->
+## Governance Core / 自動生成されたHealth実行契約
+
+- 正本: `docs/ai_handoff/HARU_GOVERNANCE_POLICY_REGISTRY.json` (`2026-07-19.4`); このblockは自動生成。
+- 適用policy: `HARU-POL-REQ-001`, `HARU-POL-PURPOSE-001`, `HARU-POL-DELIVERY-001`, `HARU-POL-PARENT-001`, `HARU-POL-ACCOUNTABILITY-001`, `HARU-POL-OPENING-001`, `HARU-POL-CONTEXT-001`, `HARU-POL-RESEARCH-001`, `HARU-POL-GOVERNANCE-001`, `HARU-POL-PROJECTION-001`
+- 共通実行契約はcommon Skillの自動生成blockを正本とし、Health固有本文はprovider/credential/quota/cooldown/evidence責任だけを持つ。
+- Health作業でも現在の明示オーダーに直結しない監視拡張・広範test・周辺修理を先行せず、必要blocker除去だけを1〜2手と復帰条件付きで行う。
+- dashboard表示やheartbeatだけでAVAILABLEを主張せず、exact cellの供給・lease・消費・resultまで確認する。
+- 一時障害を永久HOLDへ固定せず、自動補充・再検査・source generation一致を機械確認する。
+- UI変更ではApple Design profileを適用するが、見た目の改善をruntime正常化やNorth Star加点に置換しない。
+- Skill鮮度更新は正本projectionとprogram runnerで行い、Window C/D・ブラウザAI・Yuyaの発見を前提にしない。
+- 機械判定: `tools/continue_foundry_proxy/osai_two_pass_answer_gate.py`。正確なfield一覧は正本だけに置く。
+
+<!-- HARU_GOVERNANCE_POLICY_PROJECTION:END -->
 
 ## 1. Required companion skill
 
@@ -492,6 +507,49 @@ The Health dashboard must not become the primary owner of:
 Existing Teacher Inbox UI may remain temporarily until migration is complete.
 
 Do not delete it before the OSAI replacement is live and reviewed.
+
+### 17.1 Scoped Apple Design profile for Health dashboard UI
+
+Apply this profile whenever the task creates, edits, or reviews a user-visible Health dashboard surface, including status cards, tables, filters, navigation, charts, sheets, dialogs, responsive layout, and interaction motion. Do not load it for provider/probe/runtime work with no UI impact.
+
+Source and reuse decision:
+
+- adapted in bounded form from `emilkowalski/skills` → `skills/apple-design/SKILL.md` (MIT)
+- reuse only the interaction, hierarchy, accessibility, typography, and restraint principles
+- do not copy its full text, add a new framework dependency, or create a fourth Skill-sync runtime
+
+Health-specific priority order:
+
+1. truthful current availability, stale state, cooldown, failure, and evidence age
+2. fast scanning, legibility, keyboard/touch access, and clear next action
+3. immediate and continuous interaction feedback
+4. restrained visual polish
+
+Runtime and evidence correctness always outrank animation or visual style.
+
+Required UI behavior:
+
+- Give visible pressed/selected feedback immediately. Do not add artificial waits on the input path.
+- For real drag, swipe, drawer, or sheet interactions, keep content attached to the pointer, preserve the grab offset, allow interruption/reversal at any time, and never lock input while an animation finishes.
+- Default motion is critically damped and non-bouncy. Use slight bounce only when the user's gesture carried momentum. Do not animate routine live-status changes decoratively.
+- Enter and exit along the same path and anchor popovers/sheets to the control that opened them. Avoid spatial jumps that make the user lose context.
+- Prefer `transform` and `opacity` for motion. Do not let animation delay fresh data, hide stale data, or imply that a provider action occurred.
+- Use translucent material only when it clarifies layer hierarchy. Do not stack glass-on-glass surfaces, reduce contrast, or sacrifice dense operational readability.
+- Prefer the platform system font, size-aware tracking/line-height, and `rem`/`em` sizing. Text zoom or larger user text must not break status cards or tables.
+- Support `prefers-reduced-motion`, `prefers-reduced-transparency`, and stronger contrast. Preserve meaningful feedback with a calmer equivalent rather than removing all feedback.
+- Keep keyboard focus visible, hit targets forgiving, labels specific, and navigation predictable. Every screen must make clear: where the user is, what is healthy or failing, how old the proof is, and what can be done next.
+- Confirmation is for genuinely destructive or irreversible actions only. A read-only dashboard must never visually suggest that a state-changing action already happened.
+
+Before accepting a Health dashboard UI change, verify at minimum:
+
+- loading, empty, healthy, degraded, stale, cooldown, and error states
+- keyboard-only operation and visible focus
+- reduced-motion and high-contrast behavior
+- narrow and wide layouts without clipped evidence or hidden timestamps
+- no material layout shift, animation-caused input delay, or readability regression
+- fixture/render tests remain evidence of rendering only; they do not prove current provider availability
+
+Record any deliberate exception and why it improves Health comprehension rather than merely looking more Apple-like.
 
 ## 18. Dashboard non-blocking rule
 

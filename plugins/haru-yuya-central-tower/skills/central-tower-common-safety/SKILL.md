@@ -5,6 +5,22 @@ description: Common execution and safety rules for all Haru-Yuya Central Tower /
 
 # Haru-Yuya Central Tower Common Safety Skill
 
+<!-- HARU_GOVERNANCE_POLICY_PROJECTION:BEGIN -->
+## Governance Core / 自動生成された共通実行契約
+
+- 正本: `docs/ai_handoff/HARU_GOVERNANCE_POLICY_REGISTRY.json` (`2026-07-19.4`); このblockは自動生成。
+- 適用policy: `HARU-POL-REQ-001`, `HARU-POL-PURPOSE-001`, `HARU-POL-DELIVERY-001`, `HARU-POL-PARENT-001`, `HARU-POL-ACCOUNTABILITY-001`, `HARU-POL-OPENING-001`, `HARU-POL-CONTEXT-001`, `HARU-POL-RESEARCH-001`, `HARU-POL-GOVERNANCE-001`, `HARU-POL-PROJECTION-001`
+- この自動生成blockは下の手書き本文より優先し、矛盾する旧文言を無効化する。blockを直接編集しない。
+- 回答は『本来の目的:』から現在地5行で始め、親目的・終了条件・残件へ必ず戻る。
+- 各tool実行前にYuyaの現在のオーダー・先に届ける成果・今回の操作を照合し、成果を直接進めない操作を拒否する。必須blocker除去は1〜2手と復帰条件付きに限定する。
+- 要件未確定はread-only、確定済みの可逆な技術判断はYuyaへGOを返さず自律継続する。
+- 既存成功ルート・共通部品・公式資料またはweb調査を先に確認し、同じ失敗経路を繰り返さない。
+- source/test/受け口だけで完了にせず、既存本線への配線、consumer pickup、許可済みactivation、live証拠、repository closure、親目的への回帰まで同じownerが閉じる。
+- Skill鮮度更新は正本projectionとprogram runnerで行い、Window C/D・ブラウザAI・Yuyaの発見を前提にしない。
+- 機械判定: `tools/continue_foundry_proxy/osai_two_pass_answer_gate.py`。正確なfield一覧は正本だけに置く。
+
+<!-- HARU_GOVERNANCE_POLICY_PROJECTION:END -->
+
 ## 1. Purpose
 
 This skill contains only the rules shared by all Central Tower workers.

@@ -1,9 +1,25 @@
 ---
 name: osai-runtime-learning-execution
-description: Use this skill for Haru-Yuya Central Tower OSAI work: task packets, routing, failover, fallback, roaming, testcodex parity, agent behavior, Judge and benchmark interpretation, Teacher Inbox, learning events, canonical update candidates, and OSAI Runtime Intelligence dashboard. Load together with central-tower-common-safety.
+description: Use this skill for Haru-Yuya Central Tower OSAI work: task packets, routing, failover, fallback, roaming, testcodex parity, agent behavior, Judge and benchmark interpretation, Teacher Inbox, learning events, canonical update candidates, and OSAI Runtime Intelligence dashboard. When creating, editing, or reviewing user-visible OSAI UI, also apply the scoped Apple Design profile in section 19.1. Load together with central-tower-common-safety.
 ---
 
 # Haru-Yuya Central Tower OSAI Runtime and Learning Execution Skill
+
+<!-- HARU_GOVERNANCE_POLICY_PROJECTION:BEGIN -->
+## Governance Core / 自動生成されたOSAI実行契約
+
+- 正本: `docs/ai_handoff/HARU_GOVERNANCE_POLICY_REGISTRY.json` (`2026-07-19.4`); このblockは自動生成。
+- 適用policy: `HARU-POL-REQ-001`, `HARU-POL-PURPOSE-001`, `HARU-POL-DELIVERY-001`, `HARU-POL-PARENT-001`, `HARU-POL-ACCOUNTABILITY-001`, `HARU-POL-OPENING-001`, `HARU-POL-CONTEXT-001`, `HARU-POL-RESEARCH-001`, `HARU-POL-GOVERNANCE-001`, `HARU-POL-PROJECTION-001`
+- 共通実行契約はcommon Skillの自動生成blockを正本とし、OSAI固有本文はrouting/Judge/Teacher/Learning/North Star責任だけを持つ。
+- OSAI作業でもYuyaが先に求めた成果を返す前に周辺学習・広範回帰・再設計へ逸れず、primary outcomeを直接進める操作だけを実行する。
+- provider単体成功・局所PASS・synthetic評価だけをNorth Star加点やproduction adoptionにしない。
+- 同一rubric本人再試験→Regression→sealed Holdout→production adoption→final liveまで閉じる。
+- A/B/C/DやGUI窓の停止を中央学習本線の停止理由にせず、program laneとGUIなしruntimeを優先する。
+- UI変更ではApple Design profileを適用するが、演出や祝福表示でcanonical採用を暗示しない。
+- Skill鮮度更新は正本projectionとprogram runnerで行い、Window C/D・ブラウザAI・Yuyaの発見を前提にしない。
+- 機械判定: `tools/continue_foundry_proxy/osai_two_pass_answer_gate.py`。正確なfield一覧は正本だけに置く。
+
+<!-- HARU_GOVERNANCE_POLICY_PROJECTION:END -->
 
 ## 1. Required companion skill
 
@@ -526,6 +542,50 @@ The dashboard should own Teacher Inbox UI.
 Health may keep only a compact link or eligibility summary.
 
 Dashboard work must not block runtime integration.
+
+### 19.1 Scoped Apple Design profile for OSAI UI
+
+Apply this profile whenever the task creates, edits, or reviews a user-visible OSAI surface, including `/osai-brain`, Runtime Intelligence, Teacher Inbox, routing views, Eval approval, learning/candidate views, progress navigation, dialogs, sheets, responsive layout, and interaction motion. Do not load it for routing/runtime/learning source work with no UI impact.
+
+Source and reuse decision:
+
+- adapted in bounded form from `emilkowalski/skills` → `skills/apple-design/SKILL.md` (MIT)
+- reuse only the interaction, hierarchy, accessibility, typography, agency, and restraint principles
+- do not copy its full text, add a new framework dependency, or create a fourth Skill-sync runtime
+
+OSAI-specific priority order:
+
+1. current runtime truth, North Star progress, uncertainty, and evidence boundaries
+2. clear task/route/learning hierarchy and one obvious next action
+3. immediate, interruptible interaction feedback
+4. restrained visual polish and delight
+
+OSAI runtime truth and learning evidence always outrank animation or visual style.
+
+Required UI behavior:
+
+- Give visible pressed/selected feedback immediately. Do not add artificial waits on the input path.
+- For real drag, swipe, drawer, timeline scrub, or sheet interactions, track the pointer continuously, preserve the grab offset, allow interruption/reversal at any time, and never lock input until an animation finishes.
+- Default motion is critically damped and non-bouncy. Use slight bounce only when the user's gesture carried momentum. Do not celebrate synthetic PASS, queue insertion, or candidate creation as if production adoption were complete.
+- Enter and exit along the same path and anchor popovers/sheets to the control that opened them. Preserve the user's location when moving between runtime, Teacher, Eval, and learning views.
+- Prefer `transform` and `opacity` for motion. Do not let animation delay fresh telemetry, mask asynchronous updates, hide uncertainty, or make stale evidence appear live.
+- Use translucent material only when it clarifies hierarchy. Do not stack glass-on-glass surfaces, reduce text contrast, or trade operational density for an Apple-looking shell.
+- Prefer the platform system font, size-aware tracking/line-height, and `rem`/`em` sizing. Larger text and browser zoom must not break progress, route, or evidence layouts.
+- Support `prefers-reduced-motion`, `prefers-reduced-transparency`, and stronger contrast. Preserve clear state feedback with calmer alternatives.
+- Keep keyboard focus visible, hit targets forgiving, labels specific, and navigation predictable. Every screen must answer: where am I, what is running, what is only a candidate, what evidence supports it, and how do I get back.
+- Preserve user agency. Show previews and consequences before meaningful changes; make safe actions reversible where practical; use confirmation only for genuinely destructive, paid, external-send, activation, or irreversible actions.
+- Put the common path first and advanced diagnostics one level deeper. Simplicity means less cognitive work, not hiding critical evidence.
+
+Before accepting an OSAI UI change, verify at minimum:
+
+- loading, empty, active, blocked, stale, candidate-only, source-ready, live-unverified, adopted, and error states
+- keyboard-only operation and visible focus
+- reduced-motion and high-contrast behavior
+- narrow and wide layouts without hidden evidence refs, timestamps, or uncertainty labels
+- no material layout shift, animation-caused input delay, or telemetry readability regression
+- fixture/render tests remain evidence of rendering only; they do not prove routing, learning, adoption, or final-live behavior
+
+Record any deliberate exception and why it improves OSAI comprehension or user control rather than merely looking more Apple-like.
 
 ## 20. Human gates
 
